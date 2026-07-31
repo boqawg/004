@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIA AUREA — Tailored Luxury Travel</title>
+  
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root { --ink:#11110f; --ivory:#f5f1e8; --gold:#ba954a; --muted:#736f66; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; font-family:"DM Sans", sans-serif; color:var(--ink); background:var(--ivory); }
+    .serif { font-family:"Playfair Display", serif; }
+    
+    .hero-wrap { min-height: 90vh; position:relative; isolation:isolate; }
+    .hero-wrap::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.4) 54%,rgba(0,0,0,.2) 100%); }
+    .hero-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:-2; }
+    
+    .fine-line { height:1px; background:rgba(186,149,74,.58); }
+    .map-grid { background-image:linear-gradient(rgba(186,149,74,.12) 1px, transparent 1px),linear-gradient(90deg,rgba(186,149,74,.12) 1px, transparent 1px); background-size:34px 34px; }
+    .marker { border:1px solid rgba(186,149,74,.48); transition:.25s ease; background: rgba(17,17,15,0.8); color: #f5f1e8; }
+    .marker:hover, .marker.is-active { background:#ba954a !important; color:#11110f !important; transform:translateY(-3px); box-shadow:0 14px 26px rgba(186,149,74,.25); }
+    
+    .dest-panel { display:none; }
+    .dest-panel.is-active { display:grid; animation:rise .45s ease both; }
+    @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    .reveal { animation: rise .8s ease both; }
+    
+    .nav-links a { letter-spacing:.15em; font-size:.75rem; text-transform:uppercase; }
+    .nav-mobile { display:none; }
+    .form-select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ba954a' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 1rem center; }
+    
+    .btn-gold { background: #ba954a; color: #11110f; }
+    .btn-gold:hover { background: #d6b96d; }
+
+    @media (max-width: 767px) {
+      .nav-links { display:none; }
+      .nav-mobile { display:flex; }
+      .nav-links.open { display:flex; position:absolute; top:100%; left:1.25rem; right:1.25rem; padding:1.25rem; flex-direction:column; background:#11110f; border:1px solid rgba(186,149,74,.4); z-index: 50; }
+      .hero-wrap { min-height: 80vh; }
+    }
+  </style>
+ </head>
+ <body class="w-full">
+ 
+  <!-- HERO HEADER -->
+  <header class="hero-wrap w-full flex flex-col justify-between">
+   <!-- Place your hero image as hero-bg.jpg -->
+   <img src="hero-bg.jpg" alt="Luxury Travel Background" class="hero-photo">
+   
+   <nav class="relative z-10 flex items-center justify-between px-5 py-6 md:px-12 md:py-9">
+    <a href="#home" class="text-white serif text-2xl tracking-[0.14em] font-bold">VIA AUREA</a> 
+    <button id="menu-toggle" type="button" aria-label="Open navigation menu" class="nav-mobile text-[#ba954a] p-2 border border-[#ba954a]/50"> 
+      <i data-lucide="menu" class="w-5 h-5"></i> 
+    </button>
+    <div id="main-nav" class="nav-links items-center gap-8 text-white font-medium">
+     <a href="#destinations" class="hover:text-[#d6b96d] transition-colors">Destinations</a> 
+     <a href="#builder" class="hover:text-[#d6b96d] transition-colors">Trip Builder</a> 
+     <a href="#contact" class="hover:text-[#d6b96d] transition-colors">Contact</a>
+    </div>
+   </nav>
+
+   <section id="home" class="relative z-10 flex items-end px-5 pb-14 md:px-12 md:pb-20">
+    <div class="max-w-4xl reveal">
+     <p class="mb-4 text-[#d8bd78] uppercase tracking-[0.35em] text-xs font-semibold">Exquisite Journeys Designed For You</p>
+     <h1 class="serif max-w-3xl leading-[1.1] text-white text-4xl md:text-6xl font-normal">Unrivaled Luxury, Tailored Experiences.</h1>
+     <p class="mt-6 max-w-xl text-white/80 leading-7 text-base">Explore the world's most breathtaking sanctuaries with bespoke itineraries crafted to perfection.</p>
+     <a href="#builder" class="btn-gold mt-8 inline-flex items-center gap-3 px-8 py-4 uppercase tracking-[0.2em] text-xs font-bold transition-transform hover:-translate-y-1"> 
+        <span>Build Your Escape</span>
+        <i data-lucide="arrow-down-right" class="w-4 h-4"></i> 
+     </a>
+    </div>
+    <p class="absolute bottom-9 right-5 hidden rotate-90 origin-bottom-right uppercase tracking-[0.23em] text-[10px] text-white/70 md:block">Bespoke Travel — 2026</p>
+   </section>
+  </header>
+
+  <main class="w-full overflow-hidden">
+   <!-- PHILOSOPHY SECTION -->
+   <section class="w-full bg-[#f5f1e8] px-5 py-20 md:px-12 md:py-28">
+    <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-2 md:items-center">
+     <div class="relative">
+      <div class="absolute -left-3 -top-3 h-full w-full border border-[#ba954a]"></div>
+      <!-- Place your philosophy image as philosophy.jpg -->
+      <img src="philosophy.jpg" alt="Our Philosophy" class="relative h-[480px] w-full object-cover">
+     </div>
+     <div class="md:pl-10">
+      <p class="text-[#9a793a] uppercase tracking-[0.28em] text-xs font-bold">Our Art of Travel</p>
+      <h2 class="serif mt-4 max-w-md leading-tight text-3xl md:text-4xl">Redefining Private & Luxury Journeys</h2>
+      <div class="fine-line mt-6 w-16"></div>
+      <p class="mt-6 max-w-lg leading-8 text-[#4d4a43]">We curate private escapes that go beyond traditional travel. From secluded villas to private jet charters and exclusive local access, every moment is meticulously designed around your personal tastes.</p>
+      <div class="mt-10 grid grid-cols-2 gap-6">
+       <div>
+        <p class="serif text-3xl md:text-4xl text-[#ba954a]">100%</p>
+        <p class="mt-1 uppercase tracking-[0.16em] text-[10px] text-[#555149]">Tailor-Made Itineraries</p>
+       </div>
+       <div>
+        <p class="serif text-3xl md:text-4xl text-[#ba954a]">24/7</p>
+        <p class="mt-1 uppercase tracking-[0.16em] text-[10px] text-[#555149]">Dedicated Concierge</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- DESTINATIONS SECTION -->
+   <section id="destinations" class="w-full bg-[#11110f] px-5 py-20 text-[#f5f1e8] md:px-12 md:py-28">
+    <div class="mx-auto max-w-6xl">
+     <div class="max-w-2xl">
+      <p class="text-[#d6b96d] uppercase tracking-[0.3em] text-xs font-bold">Curated Sanctuary</p>
+      <h2 class="serif mt-4 leading-tight text-3xl md:text-5xl text-[#f5f1e8]">Featured Destinations</h2>
+      <p class="mt-4 leading-7 text-[#d1cbc0]">Select a pin on our interactive map to discover private sanctuaries and signature experiences.</p>
+     </div>
+
+     <!-- Interactive Map Area -->
+     <div class="map-grid relative mt-12 min-h-[330px] overflow-hidden border border-[#ba954a]/35 p-7 md:min-h-[420px]">
+      <p class="absolute left-7 top-7 text-[10px] uppercase tracking-[0.25em] text-[#ba954a]">Interactive Global Map</p>
+      <div class="absolute inset-0 opacity-30 pointer-events-none" style="background:radial-gradient(ellipse at center, transparent 30%, #11110f 88%);"></div>
+      <div class="relative h-[275px] md:h-[365px]">
+       <button type="button" class="marker is-active absolute left-[27%] top-[29%] px-3 py-2 text-xs tracking-[0.12em]" data-destination="paris">PARIS</button> 
+       <button type="button" class="marker absolute left-[42%] top-[48%] px-3 py-2 text-xs tracking-[0.12em]" data-destination="rome">ROME</button> 
+       <button type="button" class="marker absolute right-[25%] top-[55%] px-3 py-2 text-xs tracking-[0.12em]" data-destination="dubai">DUBAI</button> 
+       <button type="button" class="marker absolute right-[20%] top-[80%] px-3 py-2 text-xs tracking-[0.12em]" data-destination="maldives">MALDIVES</button> 
+       <button type="button" class="marker absolute left-[48%] top-[58%] px-3 py-2 text-xs tracking-[0.12em]" data-destination="santorini">SANTORINI</button>
+      </div>
+     </div>
+
+     <!-- Destination Cards Panels -->
+     <div class="mt-10">
+      <!-- PARIS -->
+      <article id="panel-paris" class="dest-panel is-active grid gap-7 md:grid-cols-[1.05fr_.95fr]">
+       <img src="paris.jpg" alt="Paris" class="h-72 w-full object-cover md:h-96">
+       <div class="flex flex-col justify-center border-l border-[#ba954a]/45 md:pl-9">
+        <p class="uppercase tracking-[0.25em] text-xs text-[#ba954a]">France</p>
+        <h3 class="serif mt-2 text-3xl md:text-4xl text-[#f5f1e8]">Parisian Elegance</h3>
+        <p class="mt-4 max-w-md leading-7 text-[#d1cbc0]">Private tours of the Louvre after hours, exclusive haute couture fittings, and dining at Michelin-starred havens overlooking the Seine.</p>
+        <p class="mt-6 uppercase tracking-[0.16em] text-xs text-[#d6b96d]">Highlights: Private Palace Tours &amp; VIP Fashion Access</p>
+       </div>
+      </article>
+
+      <!-- ROME -->
+      <article id="panel-rome" class="dest-panel grid gap-7 md:grid-cols-[1.05fr_.95fr]">
+       <img src="rome.jpg" alt="Rome" class="h-72 w-full object-cover md:h-96">
+       <div class="flex flex-col justify-center border-l border-[#ba954a]/45 md:pl-9">
+        <p class="uppercase tracking-[0.25em] text-xs text-[#ba954a]">Italy</p>
+        <h3 class="serif mt-2 text-3xl md:text-4xl text-[#f5f1e8]">The Eternal Majesty</h3>
+        <p class="mt-4 max-w-md leading-7 text-[#d1cbc0]">Access secret Vatican archives, enjoy private wine tasting in ancient Roman vaults, and stay in restored noble palazzos.</p>
+        <p class="mt-6 uppercase tracking-[0.16em] text-xs text-[#d6b96d]">Highlights: Vatican After-Hours &amp; Private Yacht Charters</p>
+       </div>
+      </article>
+
+      <!-- DUBAI -->
+      <article id="panel-dubai" class="dest-panel grid gap-7 md:grid-cols-[1.05fr_.95fr]">
+       <img src="dubai.jpg" alt="Dubai" class="h-72 w-full object-cover md:h-96">
+       <div class="flex flex-col justify-center border-l border-[#ba954a]/45 md:pl-9">
+        <p class="uppercase tracking-[0.25em] text-xs text-[#ba954a]">United Arab Emirates</p>
+        <h3 class="serif mt-2 text-3xl md:text-4xl text-[#f5f1e8]">Modern Mirage</h3>
+        <p class="mt-4 max-w-md leading-7 text-[#d1cbc0]">Helicopter transfers to ultra-luxurious desert resorts, private superyacht cruises along the coastline, and sky-high penthouse stays.</p>
+        <p class="mt-6 uppercase tracking-[0.16em] text-xs text-[#d6b96d]">Highlights: Private Desert Glamping &amp; Luxury Aviation</p>
+       </div>
+      </article>
+
+      <!-- MALDIVES -->
+      <article id="panel-maldives" class="dest-panel grid gap-7 md:grid-cols-[1.05fr_.95fr]">
+       <img src="maldives.jpg" alt="Maldives" class="h-72 w-full object-cover md:h-96">
+       <div class="flex flex-col justify-center border-l border-[#ba954a]/45 md:pl-9">
+        <p class="uppercase tracking-[0.25em] text-xs text-[#ba954a]">Indian Ocean</p>
+        <h3 class="serif mt-2 text-3xl md:text-4xl text-[#f5f1e8]">Island Serenity</h3>
+        <p class="mt-4 max-w-md leading-7 text-[#d1cbc0]">Unwind in overwater villas with private infinity pools, personal butler service, and underwater fine dining experiences.</p>
+        <p class="mt-6 uppercase tracking-[0.16em] text-xs text-[#d6b96d]">Highlights: Private Atoll Retreats &amp; Coral Restoration</p>
+       </div>
+      </article>
+
+      <!-- SANTORINI -->
+      <article id="panel-santorini" class="dest-panel grid gap-7 md:grid-cols-[1.05fr_.95fr]">
+       <img src="santorini.jpg" alt="Santorini" class="h-72 w-full object-cover md:h-96">
+       <div class="flex flex-col justify-center border-l border-[#ba954a]/45 md:pl-9">
+        <p class="uppercase tracking-[0.25em] text-xs text-[#ba954a]">Greece</p>
+        <h3 class="serif mt-2 text-3xl md:text-4xl text-[#f5f1e8]">Aegean Gold</h3>
+        <p class="mt-4 max-w-md leading-7 text-[#d1cbc0]">Cliffside luxury suites with panoramic caldera sunsets, private catamaran excursions, and sommelier-guided vineyard tours.</p>
+        <p class="mt-6 uppercase tracking-[0.16em] text-xs text-[#d6b96d]">Highlights: Caldera Sunset Sailing &amp; Cliffside Dining</p>
+       </div>
+      </article>
+     </div>
+    </div>
+   </section>
+
+   <!-- TRIP BUILDER SECTION -->
+   <section id="builder" class="w-full bg-[#e9e2d3] px-5 py-20 md:px-12 md:py-28">
+    <div class="mx-auto max-w-6xl">
+     <div class="grid gap-10 md:grid-cols-[.8fr_1.2fr]">
+      <div>
+       <p class="text-[#9a793a] uppercase tracking-[0.3em] text-xs font-bold">Tailored Estimator</p>
+       <h2 class="serif mt-4 leading-tight text-3xl md:text-4xl">Design Your Itinerary</h2>
+       <p class="mt-4 max-w-sm leading-7 text-[#4d4a43]">Select your preferred elements below to calculate an instant luxury package estimate.</p>
+       <p class="mt-8 border-l-2 border-[#ba954a] pl-4 text-sm italic leading-6 text-[#706a5e]">"Every itinerary is entirely custom-crafted. Final pricing reflects your unique preferences and seasonal choices."</p>
+      </div>
+
+      <div class="bg-[#f5f1e8] border border-[#ba954a]/55 p-6 shadow-[12px_12px_0_#d3c7b0] md:p-9">
+       <form id="trip-form">
+        <div class="grid gap-6 sm:grid-cols-2">
+         <div>
+          <label for="trip-destination" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Destination</label> 
+          <select id="trip-destination" class="form-select w-full border border-[#c9baa1] bg-transparent px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#ba954a]"> 
+            <option value="Paris">Paris</option>
+            <option value="Rome">Rome</option>
+            <option value="Dubai">Dubai</option>
+            <option value="Maldives">Maldives</option>
+            <option value="Santorini">Santorini</option> 
+          </select>
+         </div>
+         <div>
+          <label for="trip-stay" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Accommodation</label> 
+          <select id="trip-stay" class="form-select w-full border border-[#c9baa1] bg-transparent px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#ba954a]"> 
+            <option value="Boutique Hotel">Boutique Hotel</option>
+            <option value="Five-Star Suite">Five-Star Suite</option>
+            <option value="Private Villa">Private Villa</option> 
+          </select>
+         </div>
+         <div class="sm:col-span-2">
+          <label for="trip-experience" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Experience Focus</label> 
+          <select id="trip-experience" class="form-select w-full border border-[#c9baa1] bg-transparent px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#ba954a]"> 
+            <option value="Culture & Cuisine">Culture &amp; Cuisine</option>
+            <option value="Wellness & Leisure">Wellness &amp; Leisure</option>
+            <option value="Private Adventure">Private Adventure</option> 
+          </select>
+         </div>
+        </div>
+        <button type="submit" class="btn-gold mt-8 inline-flex w-full items-center justify-center gap-3 px-6 py-4 uppercase tracking-[0.18em] text-xs font-bold transition-transform hover:-translate-y-1"> 
+          <span>Calculate Estimate</span>
+          <i data-lucide="sparkles" class="w-4 h-4"></i> 
+        </button>
+       </form>
+
+       <div id="estimate-result" class="mt-8 hidden border-t border-[#ba954a]/50 pt-7">
+        <p class="uppercase tracking-[0.18em] text-[10px] text-[#8d6d32]">Estimated Investment</p>
+        <p id="estimate-value" class="serif mt-2 text-4xl text-[#11110f]"></p>
+        <p id="estimate-description" class="mt-2 text-sm text-[#5e584e]"></p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- CONTACT SECTION -->
+   <section id="contact" class="w-full bg-[#f5f1e8] px-5 py-20 md:px-12 md:py-28">
+    <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-[.8fr_1.2fr]">
+     <div>
+      <p class="text-[#9a793a] uppercase tracking-[0.3em] text-xs font-bold">Get In Touch</p>
+      <h2 class="serif mt-4 leading-tight text-3xl md:text-4xl">Begin Your Journey</h2>
+      <p class="mt-4 max-w-sm leading-7 text-[#4d4a43]">Contact our private travel advisors to start crafting your tailored getaway.</p>
+      <div class="mt-10 space-y-5">
+       <div>
+        <p class="uppercase tracking-[0.16em] text-[10px] text-[#9a793a]">Direct Concierge</p>
+        <p class="mt-1 font-semibold text-lg">concierge@viaaurea.com</p>
+       </div>
+       <div>
+        <p class="uppercase tracking-[0.16em] text-[10px] text-[#9a793a]">Office Hours</p>
+        <p class="mt-1 font-semibold">24/7 Global Advisory Service</p>
+       </div>
+      </div>
+     </div>
+
+     <div class="border-t-2 border-[#ba954a] pt-8">
+      <form id="contact-form" class="grid gap-6">
+       <div class="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label for="guest-name" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Full Name</label>
+          <input id="guest-name" required type="text" placeholder="John Doe" class="w-full border-b border-[#a99e8a] bg-transparent px-0 py-3 focus:border-[#ba954a] focus:outline-none">
+        </div>
+        <div>
+          <label for="guest-email" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Email Address</label>
+          <input id="guest-email" required type="email" placeholder="john@example.com" class="w-full border-b border-[#a99e8a] bg-transparent px-0 py-3 focus:border-[#ba954a] focus:outline-none">
+        </div>
+       </div>
+       <div>
+        <label for="guest-phone" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Phone Number</label>
+        <input id="guest-phone" required type="tel" placeholder="+1 (555) 000-0000" class="w-full border-b border-[#a99e8a] bg-transparent px-0 py-3 focus:border-[#ba954a] focus:outline-none">
+       </div>
+       <div class="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label for="booking-destination" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Preferred Destination</label>
+          <select id="booking-destination" required class="form-select w-full border border-[#c9baa1] bg-transparent px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#ba954a]">
+            <option value="">Select destination</option>
+            <option value="Paris">Paris</option>
+            <option value="Rome">Rome</option>
+            <option value="Dubai">Dubai</option>
+            <option value="Maldives">Maldives</option>
+            <option value="Santorini">Santorini</option>
+          </select>
+        </div>
+        <div>
+          <label for="booking-package" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Package Type</label>
+          <select id="booking-package" required class="form-select w-full border border-[#c9baa1] bg-transparent px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#ba954a]">
+            <option value="">Select package</option>
+            <option value="Boutique Hotel">Boutique Hotel</option>
+            <option value="Five-Star Suite">Five-Star Suite</option>
+            <option value="Private Villa">Private Villa</option>
+          </select>
+        </div>
+       </div>
+       <div class="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label for="travel-date" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Travel Date</label>
+          <input id="travel-date" required type="date" class="w-full border-b border-[#a99e8a] bg-transparent px-0 py-3 focus:border-[#ba954a] focus:outline-none">
+        </div>
+        <div>
+          <label for="duration" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Duration</label>
+          <select id="duration" required class="form-select w-full border border-[#c9baa1] bg-transparent px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#ba954a]">
+            <option value="">Select duration</option>
+            <option value="3 nights">3 nights</option>
+            <option value="5 nights">5 nights</option>
+            <option value="7 nights">7 nights</option>
+            <option value="10 nights">10 nights</option>
+            <option value="14 nights">14 nights</option>
+          </select>
+        </div>
+       </div>
+       <div class="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label for="adults" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Adults</label>
+          <input id="adults" required type="number" min="1" max="8" value="2" class="w-full border-b border-[#a99e8a] bg-transparent px-0 py-3 focus:border-[#ba954a] focus:outline-none">
+        </div>
+        <div>
+          <label for="children" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Children</label>
+          <input id="children" type="number" min="0" max="8" value="0" class="w-full border-b border-[#a99e8a] bg-transparent px-0 py-3 focus:border-[#ba954a] focus:outline-none">
+        </div>
+       </div>
+       <div>
+        <label for="guest-notes" class="mb-2 block text-xs font-bold uppercase tracking-[0.16em]">Special Requests &amp; Notes</label>
+        <textarea id="guest-notes" rows="3" placeholder="Tell us about any specific requirements or expectations..." class="w-full resize-none border-b border-[#a99e8a] bg-transparent px-0 py-3 focus:border-[#ba954a] focus:outline-none"></textarea>
+       </div>
+       
+       <button type="submit" class="btn-gold inline-flex w-full items-center justify-center gap-3 px-7 py-4 uppercase tracking-[0.18em] text-xs font-bold transition-transform hover:-translate-y-1">
+        <span>Request Consultation</span>
+        <i data-lucide="send" class="w-4 h-4"></i>
+       </button>
+      </form>
+
+      <!-- Message Success Box -->
+      <div id="contact-success" class="hidden mt-7 items-center gap-3 border border-[#ba954a] bg-[#ba954a]/10 px-5 py-4">
+       <i data-lucide="check-circle" class="h-5 w-5 text-[#9a793a]"></i>
+       <p class="text-sm font-medium text-[#11110f]">Thank you for your request. Our luxury travel advisor will reach out to you within 24 hours.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+  </main>
+
+  <footer class="w-full bg-[#11110f] px-5 py-8 text-center md:px-12 border-t border-[#ba954a]/20">
+   <p class="text-[10px] uppercase tracking-[0.28em] text-[#d1c6b3]">&copy; 2026 VIA AUREA LUXURY TRAVEL. ALL RIGHTS RESERVED.</p>
+  </footer>
+
+  <!-- JavaScript Operations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Lucide Icons
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+
+      // Mobile Menu Toggle
+      const nav = document.getElementById('main-nav');
+      const menuToggle = document.getElementById('menu-toggle');
+      if (menuToggle && nav) {
+        menuToggle.addEventListener('click', () => {
+          const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+          menuToggle.setAttribute('aria-expanded', String(!expanded));
+          nav.classList.toggle('open', !expanded);
+        });
+        nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+          nav.classList.remove('open'); 
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }));
+      }
+
+      // Map Markers & Destination Switcher
+      const markers = document.querySelectorAll('[data-destination]');
+      const panels = document.querySelectorAll('.dest-panel');
+      markers.forEach(marker => marker.addEventListener('click', () => {
+        const destination = marker.dataset.destination;
+        markers.forEach(item => item.classList.toggle('is-active', item === marker));
+        panels.forEach(panel => panel.classList.toggle('is-active', panel.id === 'panel-' + destination));
+      }));
+
+      // Estimator Form Handler
+      const tripForm = document.getElementById('trip-form');
+      if (tripForm) {
+        tripForm.addEventListener('submit', event => {
+          event.preventDefault();
+          const destination = document.getElementById('trip-destination').value;
+          const stay = document.getElementById('trip-stay').value;
+          const experience = document.getElementById('trip-experience').value;
+          
+          const destinationBase = { Paris: 4200, Rome: 3900, Dubai: 5100, Maldives: 6200, Santorini: 4500 };
+          const stayCost = { 'Boutique Hotel': 0, 'Five-Star Suite': 1500, 'Private Villa': 3200 };
+          const experienceCost = { 'Culture & Cuisine': 750, 'Wellness & Leisure': 1100, 'Private Adventure': 1700 };
+          
+          const total = destinationBase[destination] + stayCost[stay] + experienceCost[experience];
+          
+          document.getElementById('estimate-value').textContent = 'From €' + total.toLocaleString('en-US');
+          document.getElementById('estimate-description').textContent = `${destination} · ${stay} · ${experience} · per couple`;
+          document.getElementById('estimate-result').classList.remove('hidden');
+        });
+      }
+
+      // Contact Form Handler
+      const contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', event => {
+          event.preventDefault();
+          if (!contactForm.checkValidity()) { 
+            contactForm.reportValidity(); 
+            return; 
+          }
+          
+          contactForm.reset();
+          const successBox = document.getElementById('contact-success');
+          if (successBox) {
+            successBox.classList.remove('hidden');
+            successBox.classList.add('flex');
+            setTimeout(() => {
+              successBox.classList.add('hidden');
+              successBox.classList.remove('flex');
+            }, 6000);
+          }
+        });
+      }
+    });
+  </script>
+ </body>
+</html>
